@@ -1,10 +1,10 @@
 require('dotenv');
 const { connect, connection } = require('mongoose');
 
-connect(`mongodb://localhost:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
+connect(`mongodb://localhost:27017/socialDB`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
-    .catch(err => handleError(err))
+    .catch(err => console.log(err))
 
 module.exports = connection

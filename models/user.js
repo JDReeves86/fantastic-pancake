@@ -31,13 +31,13 @@ const userSchema = new Schema({
       ref: "user",
     },
   ],
-  virtuals: {
-    friendCount: {
-      get() {
-        return this.friends.length;
-      },
-    },
-  },
+  // virtuals: {
+  //   friendCount: {
+  //     get() {
+  //       return this.friends.length;
+  //     },
+  //   },
+  // },
 });
 
 const User = model("user", userSchema);

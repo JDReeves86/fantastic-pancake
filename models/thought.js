@@ -12,8 +12,8 @@ const thoughtSchema = new Schema({
   createdAt: {
     type: Date,
     default: new Date(),
-    unique: true,
-    get: formatDate(), //might need to remove parenthesis if function fails
+    unique: false,
+    // get: formatDate(), //might need to remove parenthesis if function fails
   },
   username: {
     type: String,
