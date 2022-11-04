@@ -37,10 +37,12 @@ const userSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      // allows for use of virtuals
     },
   }
 );
 
+// adds the friendCount virtual
 userSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });

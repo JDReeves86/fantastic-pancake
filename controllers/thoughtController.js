@@ -3,6 +3,7 @@ const Thought = require("../models/thought");
 const User = require("../models/user");
 
 module.exports = {
+  // GET all thoughts
   async getThoughts(req, res) {
     try {
       const thoughtData = await Thought.find({});
@@ -15,6 +16,7 @@ module.exports = {
     }
   },
 
+  // GET thought by id
   async getSingleThought(req, res) {
     try {
       const thoughtData = await Thought.findById(req.params.id);
@@ -27,6 +29,7 @@ module.exports = {
     }
   },
 
+  //POST new thought
   async postThought(req, res) {
     try {
       const thoughtData = await Thought.create({
@@ -57,6 +60,7 @@ module.exports = {
     }
   },
 
+  // PUT existing thought
   async editThought(req, res) {
     try {
       const thoughtData = await Thought.findByIdAndUpdate(req.params.id, {
@@ -71,6 +75,7 @@ module.exports = {
     }
   },
 
+  // DELETE existing thought
   async deleteThought(req, res) {
     try {
       const thoughtData = await Thought.findByIdAndDelete(req.params.id);
@@ -83,9 +88,9 @@ module.exports = {
     }
   },
 
+  // POST reaction to thought
   async postReaction(req, res) {
     try {
-
       const thoughtData = await Thought.findByIdAndUpdate(
         req.params.id,
         { $addToSet: { reactions: req.body } },
@@ -100,6 +105,7 @@ module.exports = {
     }
   },
 
+  // DELETE thought reaction
   async deleteReaction(req, res) {
     try {
       const thoughtData = await Thought.findByIdAndUpdate(

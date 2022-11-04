@@ -3,6 +3,7 @@ const Thought = require("../models/thought");
 const User = require("../models/user");
 
 module.exports = {
+  // GET all users
   async getUsers(req, res) {
     try {
       const userData = await User.find({});
@@ -15,6 +16,7 @@ module.exports = {
     }
   },
 
+  // GET user by id
   async getSingleUser(req, res) {
     try {
       const userData = await User.findById(req.params.id);
@@ -27,6 +29,7 @@ module.exports = {
     }
   },
 
+  // POST new user
   async createUser(req, res) {
     try {
       const userData = await User.create({
@@ -49,6 +52,7 @@ module.exports = {
     }
   },
 
+  // PUT existing user
   async editUser(req, res) {
     try {
       const userData = await User.findByIdAndUpdate(req.params.id, {
@@ -64,14 +68,15 @@ module.exports = {
     }
   },
 
+  // DELETE existing user
   async deleteUser(req, res) {
     try {
       const userData = await User.findByIdAndDelete(req.params.id);
 
       await Thought.deleteMany({
-        username: userData.username
-      })
-      
+        username: userData.username,
+      });
+
       !userData
         ? res.status(404).json({ message: "No users found by that ID!" })
         : res.status(200).json(userData);
@@ -80,6 +85,7 @@ module.exports = {
     }
   },
 
+  // POST new friend
   async addFriend(req, res) {
     try {
       const userData = await User.findByIdAndUpdate(req.params.id, {
@@ -94,6 +100,7 @@ module.exports = {
     }
   },
 
+  // DELETE friends
   async deleteFriend(req, res) {
     try {
       const userData = await User.findByIdAndUpdate(req.params.id, {

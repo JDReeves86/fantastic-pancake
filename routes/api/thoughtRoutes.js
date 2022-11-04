@@ -11,6 +11,7 @@ const {
 
 router.route("/").get(getThoughts).post(postThought);
 
+// thought ID to be edited
 router
   .route("/:id")
   .get(getSingleThought)

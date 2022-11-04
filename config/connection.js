@@ -1,10 +1,10 @@
-require('dotenv');
-const { connect, connection } = require('mongoose');
+require("dotenv");
+const { connect, connection } = require("mongoose");
 
+// creates mongodb connection
 connect(`mongodb://localhost:27017/socialDB`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .catch(err => console.log(err))
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).catch((err) => console.log(err));
 
-module.exports = connection
+module.exports = connection;
