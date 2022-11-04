@@ -13,13 +13,22 @@ const thoughtSchema = new Schema({
     type: Date,
     default: new Date(),
     unique: false,
-    // get: formatDate(), //might need to remove parenthesis if function fails
+    get: (date) => {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', seconds: 'numeric' }
+      const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+      return formattedDate
+    }, //might need to remove parenthesis if function fails
   },
   username: {
     type: String,
     required: true,
   },
   reactions: [],
+},
+{
+  toJSON: {
+    getters: true
+  }
 });
 
 const Thought = model("thoughts", thoughtSchema);

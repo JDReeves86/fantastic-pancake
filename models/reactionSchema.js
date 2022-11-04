@@ -4,7 +4,7 @@ const formatDate = require("../helpers/formatDate");
 const reactionSchema = new Schema({
   reactionID: {
     type: Schema.Types.ObjectId,
-    default: new ObjectId(),
+    default: new Schema.Types.ObjectId,
   },
   rectionBody: {
     type: String,
@@ -18,8 +18,11 @@ const reactionSchema = new Schema({
   createdAt: {
     type: Date,
     default: new Date(),
-    get: formatDate(),
-  },
+    get: (date) => {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', seconds: 'numeric' }
+      const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+      return formattedDate
+  }}
 });
 
 

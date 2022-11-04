@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Thought = require('../../models/thought');
+const User = require('../../models/user');
+const Reaction = require('../../models/reactionSchema');
 
 router.get("/", async (req, res) => {
   try {
@@ -27,7 +29,12 @@ router.post("/", async (req, res) => {
       thoughtText: req.body.thoughtText,
       username: req.body.username
     })
-
+    const userData = await User.find({
+      username: req.body.username
+    }).update({
+      $addToSet : {thoughts: thoughtData}
+    })
+    
     /* What is the difference between this syntax and the one above? */
     // const thoughtData = await new Thought({
     //  thoughtText: req.body.thoughtText,
@@ -66,6 +73,7 @@ router.delete("/:id", async (req, res) => {
 router.post("/:id/reactions", async (req, res) => {
   try {
     const thoughtData = await Thought.findById(req.params.id)
+    const reactionData = await Reac
 
     res.status(200).json(thoughtData)
   } catch (err) {

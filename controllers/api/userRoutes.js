@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
 
     res.status(200).json(userData)
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -18,7 +18,7 @@ router.get("/:id", async (req, res) => {
 
     res.status(200).json(userData)
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
 
     res.status(200).json(userData)
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -50,7 +50,7 @@ router.put("/:id", async (req, res) => {
     })
     res.status(200).json(userData)
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -59,7 +59,7 @@ router.delete("/:id", async (req, res) => {
     const userData = await User.findByIdAndDelete(req.params.id)
     res.status(200).json(userData)
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -68,21 +68,25 @@ router.delete("/:id", async (req, res) => {
 
 router.post("/:id/friends/:friendID", async (req, res) => {
   try {
-    const userData = await User.findById(req.params.friendID)
+    const userData = await User.findByIdAndUpdate(req.params.id,
+      { $addToSet: { friends: req.params.friendID }},
+    )
 
     res.status(200).json(userData)
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 });
 
 router.delete("/:id/friends/:friendID", async (req, res) => {
   try {
-    const userData = await User.findById(req.params.friendID)
+    const userData = await User.findByIdAndUpdate(req.params.id,
+      { $pull: { friends: req.params.friendID }},
+    )
 
     res.status(200).json(userData)
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err.message });
   }
 });
 

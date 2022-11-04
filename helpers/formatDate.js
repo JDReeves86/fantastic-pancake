@@ -1,9 +1,9 @@
 const test = new Date
 
-const formatDate = (date) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+const formatDate = () => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', seconds: 'numeric' }
+    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(Date.now());
     return formattedDate
 }
 
-module.exports = formatDate()
+module.exports = formatDate
