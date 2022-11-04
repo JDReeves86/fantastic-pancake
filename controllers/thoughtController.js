@@ -85,6 +85,7 @@ module.exports = {
 
   async postReaction(req, res) {
     try {
+
       const thoughtData = await Thought.findByIdAndUpdate(
         req.params.id,
         { $addToSet: { reactions: req.body } },

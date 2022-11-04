@@ -1,4 +1,5 @@
 // const router = require("express").Router();
+const Thought = require("../models/thought");
 const User = require("../models/user");
 
 module.exports = {
@@ -67,6 +68,10 @@ module.exports = {
     try {
       const userData = await User.findByIdAndDelete(req.params.id);
 
+      await Thought.deleteMany({
+        username: userData.username
+      })
+      
       !userData
         ? res.status(404).json({ message: "No users found by that ID!" })
         : res.status(200).json(userData);

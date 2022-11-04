@@ -1,3 +1,96 @@
+# Challenge 18
+
+
+## Fantastic-Pancake: Social Media API
+
+---
+
+### Contents 
+
+---
+
+1. Objectives
+2. About
+4. Links
+5. Assignment details & grading rubric (*ignore me*)
+
+<br>
+<br>
+
+### Objectives ###
+
+---
+
+<br>
+
+1. WHEN I enter the command to invoke the application THEN my server is started and the Mongoose models are synced to the MongoDB database
+2. WHEN I open API GET routes in Insomnia for users and thoughts THEN the data for each of these routes is displayed in a formatted JSON
+3. WHEN I test API POST, PUT, and DELETE routes in Insomnia THEN I am able to successfully create, update, and delete users and thoughts in my database
+4. WHEN I test API POST and DELETE routes in Insomnia THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
+
+<br>
+<br>
+
+### About ###
+
+---
+
+<br>
+
+1. WHEN I enter the command to invoke the application THEN my server is started and the Mongoose models are synced to the MongoDB database
+  > When the command npm run start is invoked, the server connects to mongodb through the connection.js file.
+
+2. WHEN I open API GET routes in Insomnia for users and thoughts THEN the data for each of these routes is displayed in a formatted JSON
+  > All GET routes return desired data in JSON format when called.
+3. WHEN I test API POST, PUT, and DELETE routes in Insomnia THEN I am able to successfully create, update, and delete users and thoughts in my database
+  > For creating a user, the user will send a JSON body with the username and email to be posted. To update, they will use the user ID and can change their username and email, to delete they will use the id and their account will be deleted. When the account is deleted, all associated thoughts witht heir account will also be deleted.
+4. WHEN I test API POST and DELETE routes in Insomnia THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
+  > To post a thought, the user will send a JSON body with the username and thoughtText to tbe posted. If they wish to delete or edit the post they will use the id and if they wish to edit througha  put request they only need to send the body with the updated thoughtText. They may also post reactions and delete reactions.
+<br>
+<br>
+
+### Screenshots ###
+
+---
+
+N/A
+
+<br>
+
+### Links ###
+
+---
+
+<br>
+
+
+Link to Github repo: https://github.com/JDReeves86/fantastic-pancake
+
+Link to video walkthrough: https://drive.google.com/file/d/1VKk2ksIGEgopBy3YU5ZVQ-C1VzPBzdcz/view
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+---
+
+---
+
+## Assignment Details & Grading Rubric ##
+
+---
+
+---
+
+<br>
+<br>
+
+
 # 18 NoSQL: Social Network API
 
 ## Your Task
