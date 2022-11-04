@@ -14,7 +14,7 @@ const thoughtData = [
         username: 'MaxRockatansky'
     },
     {
-        thoughtText: "That dang feral kid won'&#39;'t stop following me, He'&#39;'s kind of growing on me..",
+        thoughtText: "That dang feral kid won't stop following me, He's kind of growing on me..",
         username: 'MaxRockatansky'
     },
 ]

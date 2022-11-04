@@ -1,13 +1,15 @@
 const router = require("express").Router();
 const Thought = require('../../models/thought');
 const User = require('../../models/user');
-const Reaction = require('../../models/reactionSchema');
 
 router.get("/", async (req, res) => {
   try {
     const thoughtData = await Thought.find({})
 
-    res.status(200).json(thoughtData)
+  !thoughtData ? 
+    res.status(404).json({message: 'No thoughts found by that ID'}) 
+    : res.status(200).json(thoughtData)
+
   } catch (err) {
     console.log(err);
   }
@@ -17,7 +19,10 @@ router.get("/:id", async (req, res) => {
   try {
     const thoughtData = await Thought.findById(req.params.id)
 
-    res.status(200).json(thoughtData)
+  !thoughtData ? 
+    res.status(404).json({message: 'No thoughts found by that ID'}) 
+    : res.status(200).json(thoughtData)
+
   } catch (err) {
     console.log(err);
   }
@@ -42,7 +47,12 @@ router.post("/", async (req, res) => {
     // })
     // thoughtData.save()
 
-    res.status(200).json(thoughtData)
+  if (!userData) res.status(404).json({message: 'No users found by that ID'}) 
+
+  !thoughtData ? 
+    res.status(404).json({message: 'No thoughts found by that ID'}) 
+    : res.status(200).json(thoughtData)
+
   } catch (err) {
     console.log(err);
   }
@@ -53,7 +63,11 @@ router.put("/:id", async (req, res) => {
     const thoughtData = await Thought.findByIdAndUpdate(req.params.id, {
       thoughtText: req.body.thoughtText,
     })
-    res.status(200).json(thoughtData)
+    
+  !thoughtData ? 
+    res.status(404).json({message: 'No thoughts found by that ID'}) 
+    : res.status(200).json(thoughtData)
+
   } catch (err) {
     console.log(err);
   }
@@ -61,8 +75,12 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const thoughtData = await Thought.findByIdAndDelete(req.params.id)
-    res.status(200).json(thoughtData)
+    const thoughtData = await Thought.findByIdAndDelete(req.params.id);
+
+    !thoughtData ? 
+    res.status(404).json({message: 'No thoughts found by that ID'}) 
+    : res.status(200).json(thoughtData)
+
   } catch (err) {
     console.log(err);
   }
@@ -72,10 +90,16 @@ router.delete("/:id", async (req, res) => {
 
 router.post("/:id/reactions", async (req, res) => {
   try {
-    const thoughtData = await Thought.findById(req.params.id)
-    const reactionData = await Reac
 
-    res.status(200).json(thoughtData)
+    const thoughtData = await Thought.findByIdAndUpdate(req.params.id, 
+      { $addToSet : { reactions : req.body } },
+      { new : true }
+    )
+
+    !thoughtData ? 
+      res.status(404).json({message: 'No thoughts found by that ID'}) 
+      : res.status(200).json(thoughtData)
+
   } catch (err) {
     console.log(err);
   }
@@ -83,9 +107,15 @@ router.post("/:id/reactions", async (req, res) => {
 
 router.delete("/:id/reactions", async (req, res) => {
   try {
-    const thoughtData = await Thought.findById(req.params.id)
+    const thoughtData = await Thought.findByIdAndUpdate(req.params.id, 
+      { $pull : { reactions : { _id: req.body.reactionID } } },
+      { new: true }
+    )
 
-    res.status(200).json(thoughtData)
+    !thoughtData ? 
+      res.status(404).json({message: 'No thoughts found by that ID'}) 
+      : res.status(200).json(thoughtData)
+
   } catch (err) {
     console.log(err);
   }

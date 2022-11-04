@@ -1,5 +1,35 @@
 const { Schema, model } = require("mongoose");
-const formatDate = require("../helpers/formatDate");
+
+const reactionSchema = new Schema({
+  reactionID: {
+    type: Schema.Types.ObjectId,
+    default: () => new Types.ObjectId(),
+  },
+  reactionBody: {
+    type: String,
+    required: true,
+    maxLength: 280,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: new Date(),
+    get: (date) => {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', seconds: 'numeric' }
+      const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+      return formattedDate
+  }}
+},
+{
+  toJSON: {
+    getters: true
+  },
+  timestamps: true
+});
+
 
 const thoughtSchema = new Schema({
   thoughtText: {
@@ -12,23 +42,23 @@ const thoughtSchema = new Schema({
   createdAt: {
     type: Date,
     default: new Date(),
-    unique: false,
     get: (date) => {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', seconds: 'numeric' }
       const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
       return formattedDate
-    }, //might need to remove parenthesis if function fails
+    },
   },
   username: {
     type: String,
     required: true,
   },
-  reactions: [],
+  reactions: [reactionSchema],
 },
 {
   toJSON: {
     getters: true
-  }
+  },
+  timestamps: true
 });
 
 const Thought = model("thoughts", thoughtSchema);
